@@ -1,0 +1,1 @@
+export { lngs } from "./languages";
