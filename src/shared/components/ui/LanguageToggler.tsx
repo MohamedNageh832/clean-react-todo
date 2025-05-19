@@ -7,6 +7,7 @@ import {
 } from "./DropdownMenu";
 import { lngs } from "@/shared/constants";
 
+// TODO: consider the difference between toggler and switcher
 export const LanguageToggler = () => {
   const { i18n } = useTranslation();
   const activeLang = i18n.language as keyof typeof lngs;

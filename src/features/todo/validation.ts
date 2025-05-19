@@ -23,12 +23,14 @@ const validateTodo = (todo: unknown): SafeParseReturnType<unknown, Todo> => {
   return todoSchema.safeParse(todo);
 };
 
+// TODO: consider better naming
 const validateCreateTodo = (
   input: unknown
 ): SafeParseReturnType<unknown, CreateTodoInput> => {
   return createTodoInput.safeParse(input);
 };
 
+// TODO: consider better naming
 const validateUpdateTodo = (
   input: unknown
 ): SafeParseReturnType<unknown, UpdateTodoInput> => {

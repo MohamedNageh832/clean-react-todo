@@ -12,6 +12,7 @@ type TodoState = {
   errors: Partial<Record<keyof TodoState["status"], string>>;
 };
 
+// TODO: consider better naming to eliminate verbosity
 const initialCreateTodoFormState: FormState<CreateTodoInput> = {
   values: {
     title: "",

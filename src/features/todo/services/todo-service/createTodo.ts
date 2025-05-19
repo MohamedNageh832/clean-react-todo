@@ -9,6 +9,7 @@ export const createTodo = async (newTodo: CreateTodoInput) => {
     return { success: false, errors: validation.error };
   }
 
+  // TODO: consider a good and unique date format
   const data: Todo = {
     ...newTodo,
     id: ulid(),
