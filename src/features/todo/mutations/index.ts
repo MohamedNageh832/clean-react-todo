@@ -1,2 +1,2 @@
-export { resetCreateTodoFormState } from "./resetCreateTodoFormState";
-export { setCreateTodoFormStatus } from "./setCreateTodoFormStatus";
+export { resetCreateForm } from "./resetCreateForm";
+export { setCreateFormStatus } from "./setCreateFormStatus";

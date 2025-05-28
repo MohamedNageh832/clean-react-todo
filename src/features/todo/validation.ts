@@ -1,41 +1,37 @@
-import { SafeParseReturnType, z } from "zod";
+import { validate } from "@/shared/utils";
+import { z } from "zod";
 
 const todoSchema = z.object({
   id: z.string().length(26),
   title: z.string(),
-  describtion: z.string(),
-  createdAt: z.string().date(),
-  updatedAt: z.string().date(),
+  description: z.string(),
+  createdAt: z.string().datetime(),
+  updatedAt: z.string().datetime(),
 });
 
-const createTodoInput = todoSchema.omit({
+const createTodoInputSchema = todoSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true,
 });
-const updateTodoInput = createTodoInput.partial();
+const updateTodoInputSchema = createTodoInputSchema.partial();
 
 type Todo = z.infer<typeof todoSchema>;
-type CreateTodoInput = z.infer<typeof createTodoInput>;
-type UpdateTodoInput = z.infer<typeof updateTodoInput>;
+type CreateTodoInput = z.infer<typeof createTodoInputSchema>;
+type UpdateTodoInput = z.infer<typeof updateTodoInputSchema>;
 
-const validateTodo = (todo: unknown): SafeParseReturnType<unknown, Todo> => {
-  return todoSchema.safeParse(todo);
+const validateTodo = (todo: unknown) => validate(todoSchema, todo);
+const validateCreateTodoInput = (input: unknown) => {
+  return validate(createTodoInputSchema, input);
+};
+const validateUpdateTodoInput = (input: unknown) => {
+  return validate(updateTodoInputSchema, input);
 };
 
-// TODO: consider better naming
-const validateCreateTodo = (
-  input: unknown
-): SafeParseReturnType<unknown, CreateTodoInput> => {
-  return createTodoInput.safeParse(input);
+export {
+  todoSchema,
+  validateTodo,
+  validateCreateTodoInput,
+  validateUpdateTodoInput,
 };
-
-// TODO: consider better naming
-const validateUpdateTodo = (
-  input: unknown
-): SafeParseReturnType<unknown, UpdateTodoInput> => {
-  return updateTodoInput.safeParse(input);
-};
-
-export { todoSchema, validateTodo, validateCreateTodo, validateUpdateTodo };
 export type { Todo, CreateTodoInput, UpdateTodoInput };

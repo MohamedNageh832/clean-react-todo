@@ -1,36 +1,37 @@
 import { proxy } from "valtio";
 import { CreateTodoInput, Todo } from "./validation";
 import { FetchStatus, FormState } from "@/shared/types";
-import { deepClone } from "@/shared/utils";
+
+type TodoOperation = "createTodo" | "getTodos" | "updateTodo" | "deleteTodo";
 
 type TodoState = {
   todos: Todo[];
-  createTodoFormState: FormState<CreateTodoInput>;
-  status: {
-    createTodo: FetchStatus;
-  };
+  createForm: FormState<CreateTodoInput>;
+  status: Record<TodoOperation, FetchStatus>;
   errors: Partial<Record<keyof TodoState["status"], string>>;
 };
 
-// TODO: consider better naming to eliminate verbosity
-const initialCreateTodoFormState: FormState<CreateTodoInput> = {
+const createInitialCreateFormState = (): FormState<CreateTodoInput> => ({
   values: {
     title: "",
-    describtion: "",
+    description: "",
   },
   status: "idle",
   errors: {},
-};
+});
 
-const initialState: TodoState = {
+const createInitialState = (): TodoState => ({
   todos: [],
-  createTodoFormState: deepClone(initialCreateTodoFormState),
+  createForm: createInitialCreateFormState(),
   status: {
     createTodo: "idle",
+    getTodos: "idle",
+    updateTodo: "idle",
+    deleteTodo: "idle",
   },
   errors: {},
-};
+});
 
-const todoState = proxy<TodoState>(deepClone(initialState));
+const todoState = proxy<TodoState>(createInitialState());
 
-export { initialCreateTodoFormState, initialState, todoState };
+export { todoState, createInitialCreateFormState, createInitialState };

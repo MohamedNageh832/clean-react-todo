@@ -1,6 +1,6 @@
 import { ThemeToggler } from "../components";
 import Logo from "./logo";
-import { LanguageToggler } from "../components/ui";
+import { LanguageSwitcher } from "../components/ui";
 
 export const Navbar = () => {
   return (
@@ -9,7 +9,7 @@ export const Navbar = () => {
         <Logo />
 
         <section className="flex gap-3 items-center">
-          <LanguageToggler />
+          <LanguageSwitcher />
           <ThemeToggler />
         </section>
       </section>

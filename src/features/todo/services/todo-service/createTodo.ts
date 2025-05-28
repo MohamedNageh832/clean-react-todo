@@ -1,15 +1,18 @@
 import { ulid } from "ulidx";
 import { todoRepository } from "../../repository";
-import { CreateTodoInput, Todo, validateCreateTodo } from "../../validation";
+import {
+  CreateTodoInput,
+  Todo,
+  validateCreateTodoInput,
+} from "../../validation";
 
 export const createTodo = async (newTodo: CreateTodoInput) => {
-  const validation = validateCreateTodo(newTodo);
+  const validation = validateCreateTodoInput(newTodo);
 
-  if (!validation.success) {
-    return { success: false, errors: validation.error };
+  if (!validation.isValid) {
+    return { success: false, errors: validation.errors };
   }
 
-  // TODO: consider a good and unique date format
   const data: Todo = {
     ...newTodo,
     id: ulid(),
